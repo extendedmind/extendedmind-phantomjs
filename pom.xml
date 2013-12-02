@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.extendedmind</groupId>
+    <artifactId>frontend</artifactId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>org.extendedmind.frontend</groupId>
+  <artifactId>frontend-core</artifactId>
+  <packaging>pom</packaging>
+  <name>Extended Mind :: PhantomJS</name>
+  <description>Extended Mind PhantomJS</description>
+  <url>https://github.com/extendedmind/extendedmind-phantomjs</url>
+  <inceptionYear>2013</inceptionYear>
+  <licenses>
+    <license>
+      <name>New BSD License</name>
+      <url>http://www.opensource.org/licenses/bsd-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:extendedmind/extendedmind-phantomjs.git</connection>
+    <developerConnection>scm:git:git@github.com:extendedmind/extendedmind-phantomjs.git</developerConnection>
+    <url>git@github.com:extendedmind/extendedmind-phantomjs.git</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>ttiurani</id>
+      <name>Timo Tiuraniemi</name>
+      <email>timo.tiuraniemi@iki.fi</email>
+    </developer>
+  </developers>
+
+  <properties>
+    <phantomjs.version>1.9.2</phantomjs.version>
+    <phantomjs.urlBase>http://phantomjs.googlecode.com/files</phantomjs.urlBase>
+    <phantomjs.linuxFile>${phantomjs.urlBase}/phantomjs-${phantomjs.version}-linux-x86_64.tar.bz2</phantomjs.linuxFile>
+    <phantomjs.linuxOutputDirectory>${project.build.directory}/phantomjs-${phantomjs.version}-linux-x86_64</phantomjs.linuxOutputDirectory>
+    <phantomjs.macFile>${phantomjs.urlBase}/phantomjs-${phantomjs.version}-macosx.zip</phantomjs.macFile>
+    <phantomjs.macOutputDirectory>${project.build.directory}/phantomjs-${phantomjs.version}-macosx</phantomjs.macOutputDirectory>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>linux-phantomjs</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="download-phantomjs">
+                <get src="${phantomjs.linuxFile}" dest="target/phantomjs-linux-64.tar.bz2"
+                  verbose="on" skipexisting="true" />
+                <bunzip2 src="target/phantomjs-linux-64.tar.bz2"
+                  dest="target/phantomjs-linux-64.tar" />
+                <untar src="target/phantomjs-linux-64.tar"
+                  dest="target" />
+                <chmod perm="a+x">
+                  <fileset dir="${phantomjs.linuxOutputDirectory}/bin">
+                    <include name="phantomjs" />
+                  </fileset>
+                </chmod>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>mac-phantomjs</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="download-phantomjs">
+                <get src="${phantomjs.macFile}" dest="target/phantomjs-macosx.zip"
+                  verbose="on" skipexisting="true" />
+                <unzip src="target/phantomjs-macosx.zip" dest="target" />
+                <chmod perm="a+x">
+                  <fileset dir="${phantomjs.macOutputDirectory}/bin">
+                    <include name="phantomjs" />
+                  </fileset>
+                </chmod>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

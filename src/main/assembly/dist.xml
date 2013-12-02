@@ -5,11 +5,12 @@
   </formats>
   <fileSets>
     <fileSet>
-      <directory>target/phantomjs</directory>
-      <outputDirectory>.</outputDirectory>
-      <includes>
-        <include>*</include>
-      </includes>
+      <directory>${phantomjs.linuxOutputDirectory}</directory>
+      <outputDirectory>linux</outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>${phantomjs.macOutputDirectory}</directory>
+      <outputDirectory>mac</outputDirectory>
     </fileSet>
   </fileSets>
 </assembly>

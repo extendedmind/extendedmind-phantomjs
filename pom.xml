@@ -2,12 +2,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.extendedmind</groupId>
-    <artifactId>frontend</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
   </parent>
-  <groupId>org.extendedmind.frontend</groupId>
-  <artifactId>frontend-core</artifactId>
+  <groupId>org.extendedmind</groupId>
+  <artifactId>phantomjs</artifactId>
+  <version>1.9.2</version>
   <packaging>pom</packaging>
   <name>Extended Mind :: PhantomJS</name>
   <description>Extended Mind PhantomJS</description>
@@ -36,18 +37,19 @@
   </developers>
 
   <properties>
-    <phantomjs.version>1.9.2</phantomjs.version>
+    <phantomjs.version>${project.version}</phantomjs.version>
     <phantomjs.urlBase>http://phantomjs.googlecode.com/files</phantomjs.urlBase>
     <phantomjs.linuxFile>${phantomjs.urlBase}/phantomjs-${phantomjs.version}-linux-x86_64.tar.bz2</phantomjs.linuxFile>
-    <phantomjs.linuxOutputDirectory>${project.build.directory}/phantomjs-${phantomjs.version}-linux-x86_64</phantomjs.linuxOutputDirectory>
+    <phantomjs.linuxOutputDirectory>target/phantomjs-${phantomjs.version}-linux-x86_64</phantomjs.linuxOutputDirectory>
     <phantomjs.macFile>${phantomjs.urlBase}/phantomjs-${phantomjs.version}-macosx.zip</phantomjs.macFile>
-    <phantomjs.macOutputDirectory>${project.build.directory}/phantomjs-${phantomjs.version}-macosx</phantomjs.macOutputDirectory>
+    <phantomjs.macOutputDirectory>target/phantomjs-${phantomjs.version}-macosx</phantomjs.macOutputDirectory>
   </properties>
 
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
         <executions>
           <execution>
             <id>linux-phantomjs</id>
@@ -56,9 +58,9 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <target name="download-phantomjs">
+              <target name="download-phantomjs-linux">
                 <get src="${phantomjs.linuxFile}" dest="target/phantomjs-linux-64.tar.bz2"
-                  verbose="on" skipexisting="true" />
+                  verbose="on" skipexisting="true"/>
                 <bunzip2 src="target/phantomjs-linux-64.tar.bz2"
                   dest="target/phantomjs-linux-64.tar" />
                 <untar src="target/phantomjs-linux-64.tar"
@@ -78,7 +80,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <target name="download-phantomjs">
+              <target name="download-phantomjs-mac">
                 <get src="${phantomjs.macFile}" dest="target/phantomjs-macosx.zip"
                   verbose="on" skipexisting="true" />
                 <unzip src="target/phantomjs-macosx.zip" dest="target" />
@@ -89,6 +91,24 @@
                 </chmod>
               </target>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <descriptors>
+            <descriptor>src/main/assembly/dist.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

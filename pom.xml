@@ -1,14 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
   <groupId>org.extendedmind</groupId>
   <artifactId>phantomjs</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.9.7</version>
   <packaging>jar</packaging>
   <name>Extended Mind :: PhantomJS</name>
   <description>Extended Mind PhantomJS</description>
@@ -37,8 +32,8 @@
   </developers>
 
   <properties>
-    <phantomjs.version>1.9.2</phantomjs.version>
-    <phantomjs.urlBase>http://phantomjs.googlecode.com/files</phantomjs.urlBase>
+    <phantomjs.version>${project.version}</phantomjs.version>
+    <phantomjs.urlBase>http://cdn.bitbucket.org/ariya/phantomjs/downloads</phantomjs.urlBase>
     <phantomjs.linuxFile>${phantomjs.urlBase}/phantomjs-${phantomjs.version}-linux-x86_64.tar.bz2</phantomjs.linuxFile>
     <phantomjs.linuxOutputDirectory>target/phantomjs-${phantomjs.version}-linux-x86_64</phantomjs.linuxOutputDirectory>
     <phantomjs.macFile>${phantomjs.urlBase}/phantomjs-${phantomjs.version}-macosx.zip</phantomjs.macFile>
@@ -114,5 +109,22 @@
       </plugin>
     </plugins>
   </build>
+
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>extendedmind-releases</id>
+      <name>Extended Mind Releases</name>
+      <url>https://ci.ext.md/nexus/content/repositories/releases</url>
+      <layout>default</layout>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>true</uniqueVersion>
+      <id>extendedmind-snapshots</id>
+      <name>Extended Mind Snapshots</name>
+      <url>https://ci.ext.md/nexus/content/repositories/snapshots</url>
+      <layout>default</layout>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.extendedmind</groupId>
   <artifactId>phantomjs</artifactId>
-  <version>1.9.7</version>
+  <version>2.1.1</version>
   <packaging>jar</packaging>
   <name>Extended Mind :: PhantomJS</name>
   <description>Extended Mind PhantomJS</description>
@@ -30,10 +30,9 @@
       <email>timo.tiuraniemi@iki.fi</email>
     </developer>
   </developers>
-
   <properties>
     <phantomjs.version>${project.version}</phantomjs.version>
-    <phantomjs.urlBase>http://cdn.bitbucket.org/ariya/phantomjs/downloads</phantomjs.urlBase>
+    <phantomjs.urlBase>https://bitbucket.org/ariya/phantomjs/downloads</phantomjs.urlBase>
     <phantomjs.linuxFile>${phantomjs.urlBase}/phantomjs-${phantomjs.version}-linux-x86_64.tar.bz2</phantomjs.linuxFile>
     <phantomjs.linuxOutputDirectory>target/phantomjs-${phantomjs.version}-linux-x86_64</phantomjs.linuxOutputDirectory>
     <phantomjs.macFile>${phantomjs.urlBase}/phantomjs-${phantomjs.version}-macosx.zip</phantomjs.macFile>
